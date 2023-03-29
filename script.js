@@ -29,7 +29,8 @@ const people = [
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's and return the filtered array
 export function myfilter() {
-
+	const filteredInventors = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600);
+	  return filteredInventors;
 }
 
 // Array.prototype.map()
@@ -37,13 +38,16 @@ export function myfilter() {
 // Ex: For the first inventor the full name will be 'Albert Einstein'
 export function map() {
 
+	const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+	  return fullNames;
 }
 
 
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest and return the sorted array
 export function sort() {
-
+	  const sortedInventors = inventors.sort((a, b) => a.year - b.year);
+	  return sortedInventors;
 }
 
 
@@ -52,17 +56,32 @@ export function sort() {
 // Return the total number of years all the inventors lived
 export function reduce() {
 
+	const totalYearsLived = inventors.reduce((total, inventor) => {
+		return total + (inventor.passed - inventor.year);
+	}, 0);
+		return totalYearsLived;
 }
 
 // 5. Sort the inventors by years lived and return the sorted array
 export function sortbylived() {
 
+	const sortedByLived = inventors.sort((a, b) => {
+		const aYearsLived = a.passed - a.year;
+		const bYearsLived = b.passed - b.year;
+		return aYearsLived - bYearsLived;
+	});
+	return sortedByLived;
 }
 
 // 6. sort Exercise
 // Sort the people alphabetically by last name and return the sorted array
 export function sortByLastName() {
-
+	const sortedByLastName = people.sort((a, b) => {
+		const [aLast, aFirst] = a.split(", ");
+		const [bLast, bFirst] = b.split(", ");
+		return aLast > bLast ? 1 : -1;
+	});
+	return sortedByLastName;
 }
 
 // 7. Reduce Exercise
@@ -71,4 +90,12 @@ const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bik
 
 export function reducedSum() {
     // Return an object containing transports as key and its number of occurances as the key's value
+	const transportCount = data.reduce((obj, item) => {
+		if (!obj[item]) {
+			obj[item] = 0;
+		}
+		obj[item]++;
+		return obj;
+	}, {});
+	return transportCount;
 }
